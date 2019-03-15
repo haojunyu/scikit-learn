@@ -7,21 +7,16 @@ Common code for all metrics
 #          Olivier Grisel <olivier.grisel@ensta.org>
 #          Arnaud Joly <a.joly@ulg.ac.be>
 #          Jochen Wersdorfer <jochen@wersdoerfer.de>
-#          Lars Buitinck <L.J.Buitinck@uva.nl>
+#          Lars Buitinck
 #          Joel Nothman <joel.nothman@gmail.com>
 #          Noel Dawe <noel@dawe.me>
 # License: BSD 3 clause
 
-from __future__ import division
 
 import numpy as np
 
 from ..utils import check_array, check_consistent_length
 from ..utils.multiclass import type_of_target
-
-
-class UndefinedMetricWarning(UserWarning):
-    pass
 
 
 def _average_binary_score(binary_metric, y_true, y_score, average,
@@ -52,6 +47,8 @@ def _average_binary_score(binary_metric, y_true, y_score, average,
             by support (the number of true instances for each label).
         ``'samples'``:
             Calculate metrics for each instance, and find their average.
+
+        Will be ignored when ``y_true`` is binary.
 
     sample_weight : array-like of shape = [n_samples], optional
         Sample weights.
@@ -98,7 +95,7 @@ def _average_binary_score(binary_metric, y_true, y_score, average,
                 y_true, np.reshape(score_weight, (-1, 1))), axis=0)
         else:
             average_weight = np.sum(y_true, axis=0)
-        if average_weight.sum() == 0:
+        if np.isclose(average_weight.sum(), 0.0):
             return 0
 
     elif average == 'samples':

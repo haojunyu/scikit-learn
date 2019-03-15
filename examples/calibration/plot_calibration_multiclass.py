@@ -111,7 +111,7 @@ plt.annotate(r'($0$, $1$, $0$)',
              arrowprops=dict(facecolor='black', shrink=0.05),
              horizontalalignment='center', verticalalignment='center')
 # Add grid
-plt.grid("off")
+plt.grid(False)
 for x in [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]:
     plt.plot([0, x], [x, 0], 'k', alpha=0.2)
     plt.plot([0, 0 + (1-x)/2], [x, x + (1-x)/2], 'k', alpha=0.2)
@@ -145,7 +145,7 @@ prediction = np.vstack([calibrator.predict(this_p)
                         zip(calibrated_classifier.calibrators_, p.T)]).T
 prediction /= prediction.sum(axis=1)[:, None]
 
-# Ploit modifications of calibrator
+# Plot modifications of calibrator
 for i in range(prediction.shape[0]):
     plt.arrow(p[i, 0], p[i, 1],
               prediction[i, 0] - p[i, 0], prediction[i, 1] - p[i, 1],
@@ -153,7 +153,7 @@ for i in range(prediction.shape[0]):
 # Plot boundaries of unit simplex
 plt.plot([0.0, 1.0, 0.0, 0.0], [0.0, 0.0, 1.0, 0.0], 'k', label="Simplex")
 
-plt.grid("off")
+plt.grid(False)
 for x in [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]:
     plt.plot([0, x], [x, 0], 'k', alpha=0.2)
     plt.plot([0, 0 + (1-x)/2], [x, x + (1-x)/2], 'k', alpha=0.2)

@@ -1,6 +1,8 @@
 # Authors: Arnaud Joly
 #
-# Licence: BSD 3 clause
+# License: BSD 3 clause
+#
+# cython: language_level=3
 
 
 import numpy as np
